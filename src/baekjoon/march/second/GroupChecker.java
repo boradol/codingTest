@@ -31,13 +31,11 @@ class GroupChecker {
             if (str.length() == 1) return true;
 
             // 여러글자일 때 검증
-            if (verify(str, set, i)) return false;
+            // 1. set 에 지금 인덱스의 문자가 있는지 체크
+            // 2. 지금 인덱스 문자와 이전 인덱스 문자가 같은지 비교
+            if (set.contains(str.charAt(i)) && (str.charAt(i) != str.charAt(i - 1))) return false;
             set.add(str.charAt(i));
         }
         return true;
-    }
-
-    private static boolean verify(String str, Set<Character> set, int i) {
-        return set.contains(str.charAt(i)) && (str.charAt(i) != str.charAt(i - 1));
     }
 }
