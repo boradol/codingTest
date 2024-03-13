@@ -5,12 +5,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * https://www.acmicpc.net/problem/7568
  */
 public class BigSmall {
-    private static final String SPACE = " ";
     private static final StringBuilder sb = new StringBuilder();
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -22,17 +22,17 @@ public class BigSmall {
         List<Person> people = new ArrayList<>();
         inputPeople(N, people);
 
-        // LOGIC
+        // 2. LOGIC
         ranking(people);
 
-        // PRINT
+        // 3. PRINT
         System.out.println(sb);
     }
 
     private static void inputPeople(int N, List<Person> people) throws IOException {
         for (int i = 0; i < N; i++) {
-            String[] split = br.readLine().split(SPACE);
-            people.add(i, new Person(Integer.parseInt(split[0]), Integer.parseInt(split[1])));
+            StringTokenizer st = new StringTokenizer(br.readLine());
+            people.add(i, new Person(st.nextToken(), st.nextToken()));
         }
         System.out.println("people = " + people);
     }
@@ -54,11 +54,16 @@ public class BigSmall {
         int weight;
         int height;
 
+        public Person(String weight, String height) {
+            this(Integer.parseInt(weight), Integer.parseInt(height));
+        }
+
         public Person(int weight, int height) {
             this.weight = weight;
             this.height = height;
         }
 
+        // 몸무게와 키가 둘다 커야하는 비교법
         public boolean compare(Person person) {
             return this.height < person.height && this.weight < person.weight;
         }
